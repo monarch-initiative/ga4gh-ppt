@@ -2,6 +2,7 @@ package org.monarchinitiative.ga4ghppt.controller;
 
 import javafx.application.HostServices;
 import javafx.beans.property.*;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,10 +16,12 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.web.WebView;
 import org.monarchinitiative.ga4ghppt.view.ViewFactory;
 import org.monarchinitiative.ga4ghppt.widgets.PopUps;
+import org.monarchinitiative.phenol.io.OntologyLoader;
 import org.monarchinitiative.phenol.ontology.data.MinimalOntology;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -87,7 +90,7 @@ public class MainWindowController extends BaseController implements Initializabl
         loadHpo(viewFactory.getOptions().getHpJsonFile());
         this.model.setOptions(viewFactory.getOptions());
     }
-
+     */
     private void loadHpo(File hpJsonFilePath) {
         if (hpJsonFilePath != null && hpJsonFilePath.isFile()) {
             Task<MinimalOntology> hpoLoadTask = new Task<>() {
@@ -95,14 +98,10 @@ public class MainWindowController extends BaseController implements Initializabl
                 protected MinimalOntology call() {
                     MinimalOntology hpoOntology = OntologyLoader.loadOntology(hpJsonFilePath);
                     LOGGER.info("Loaded HPO, version {}", hpoOntology.version().orElse("n/a"));
-                    parentTermAdder.setOntology(hpOntology.get());
                     return hpoOntology;
                 }
             };
-            hpoLoadTask.setOnSucceeded(e -> {
-                hpOntology.set(hpoLoadTask.getValue());
-                parentTermAdder.setOntology(this.hpOntology.get());
-            });
+            hpoLoadTask.setOnSucceeded(e -> hpOntology.set(hpoLoadTask.getValue()));
             hpoLoadTask.setOnFailed(e -> {
                 LOGGER.warn("Could not load HPO from {}", hpJsonFilePath.getAbsolutePath());
                 hpOntology.set(null);
@@ -113,7 +112,7 @@ public class MainWindowController extends BaseController implements Initializabl
             hpOntology.set(null);
         }
     }
-     */
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

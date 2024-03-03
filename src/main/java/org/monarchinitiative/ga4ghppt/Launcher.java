@@ -3,6 +3,11 @@ package org.monarchinitiative.ga4ghppt;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.stage.Stage;
+import org.monarchinitiative.ga4ghppt.controller.persistence.PersistenceAccess;
+import org.monarchinitiative.ga4ghppt.model.Options;
+import org.monarchinitiative.ga4ghppt.view.ViewFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A JavaFX App for creating ROBOT templates to add or modify terms
@@ -10,8 +15,9 @@ import javafx.stage.Stage;
  * @author Peter Robinson
  */
 public class Launcher extends Application {
+    final Logger LOGGER = LoggerFactory.getLogger(Launcher.class);
 
-   // ViewFactory viewFactory = null;
+   ViewFactory viewFactory = null;
 
     public static void main(String[] args) {
         launch(args);
@@ -20,11 +26,13 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage stage) {
-       // Options options = PersistenceAccess.loadFromPersistence();
+        LOGGER.info("Starting app");
+        Options options = PersistenceAccess.loadFromPersistence();
         HostServices hostServices = getHostServices();
-      //  viewFactory = new ViewFactory(options, hostServices);
-       // viewFactory.showMainWindow();
-      //  stage.setOnCloseRequest(e -> PersistenceAccess.saveToPersistence(viewFactory.getOptions()));
+        viewFactory = new ViewFactory(options, hostServices);
+        viewFactory.showMainWindow();
+       // PopUps.alertDialog("Hi", "its me");
+        stage.setOnCloseRequest(e -> PersistenceAccess.saveToPersistence(viewFactory.getOptions()));
     }
 
     @Override

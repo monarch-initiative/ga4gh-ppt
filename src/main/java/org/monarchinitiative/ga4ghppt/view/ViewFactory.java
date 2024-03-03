@@ -48,6 +48,9 @@ public class ViewFactory {
     private Optional<Parent>  initializeBaseStage(BaseController controller) {
         String fxmlDir = "view";
         URL location = getLocation(fxmlDir, controller.getFxmlName());
+        if (location == null) {
+            LOGGER.error("Could not find FXML file for {}.", controller.getFxmlName());
+        }
         FXMLLoader loader = new FXMLLoader(location);
         // This is used to customize the creation of controller injected by javaFX when defining them with fx:controller attribute inside FXML files
         // Using the controller factory instead of setting the controller directly with fxmlLoader.setController() allows us to keep the fx:controller
@@ -62,7 +65,7 @@ public class ViewFactory {
                 try {
                     return type.getDeclaredConstructor().newInstance();
                 } catch (Exception exc) {
-                    LOGGER.error(exc.getMessage());
+                    LOGGER.error("Failed to assign base stage for {}: {}", controller.getFxmlName(),exc.getMessage());
                     throw new RuntimeException(exc); // fatal, just bail...
                 }
             }};
@@ -73,7 +76,8 @@ public class ViewFactory {
             parent = loader.load();
             return  Optional.of(parent);
         } catch (IOException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error("Failed to load controller for {}: \"{}\"", controller.getFxmlName(), e.getMessage());
+            e.printStackTrace();
             return Optional.empty();
         }
     }

@@ -23,7 +23,7 @@ import java.util.Set;
  * @author <a href="mailto:manuel.holtgrewe@charite.de">Manuel Holtgrewe</a>
  */
 public class FileDownloader {
-    private static final Logger logger = LoggerFactory.getLogger(FileDownloader.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileDownloader.class);
 
     static class ProxyOptions {
         String host = null;
@@ -72,13 +72,16 @@ public class FileDownloader {
      */
     public File copyURLToFile(URL src, File dest)  {
         if (dest.exists()) {
-            logger.warn("Overwriting file at " + dest);
+            LOGGER.warn("Overwriting file at " + dest);
         }
-        logger.trace("copyURLToFile dest=" + dest);
-        logger.trace("dest.getParentFile()=" + dest.getParentFile());
+        LOGGER.trace("copyURLToFile dest=" + dest);
+        LOGGER.trace("dest.getParentFile()=" + dest.getParentFile());
         if (!dest.getParentFile().exists()) {
-            logger.info("Creating directory {}" + dest.getParentFile().getAbsolutePath());
-            dest.getParentFile().mkdirs();
+            LOGGER.info("Creating directory {}", dest.getParentFile().getAbsolutePath());
+            boolean success = dest.getParentFile().mkdirs();
+            if (!success) {
+                LOGGER.error("Could not create directory at {}.", dest.getParentFile().getAbsolutePath());
+            }
         }
 
         return copyURLToFileThroughURL(src, dest);
@@ -108,7 +111,7 @@ public class FileDownloader {
             if (fileSize != -1)
                 pb = new ProgressBar(0, fileSize, options.printProgressBar);
             else
-                logger.info("(server did not tell us the file size, no progress bar)");
+                LOGGER.info("(server did not tell us the file size, no progress bar)");
 
             // Download file.
             byte[] buffer = new byte[128 * 1024];
@@ -130,7 +133,7 @@ public class FileDownloader {
             // return file
             return dest;
         } catch (IOException | IllegalStateException e) {
-            logger.error(String.format("Failed to downloaded file from %s", src.getHost()), e);
+            LOGGER.error(String.format("Failed to downloaded file from %s", src.getHost()), e);
             throw new RuntimeException("ERROR: Problem downloading file: " + e.getMessage());
         }
     }
