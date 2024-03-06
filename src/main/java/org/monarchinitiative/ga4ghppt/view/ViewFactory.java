@@ -124,6 +124,8 @@ public class ViewFactory {
     }
 
 
+
+
     public void showOptionsWindow() {
         OptionsWindowController controller = new OptionsWindowController( this, "OptionsWindow.fxml");
         if (this.options.isValid()) {
@@ -137,6 +139,9 @@ public class ViewFactory {
             LOGGER.warn("Could not retrieve valid Options");
         }
     }
+
+
+
 
 
     /**

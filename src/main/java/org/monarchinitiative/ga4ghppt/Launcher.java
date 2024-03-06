@@ -31,7 +31,6 @@ public class Launcher extends Application {
         HostServices hostServices = getHostServices();
         viewFactory = new ViewFactory(options, hostServices);
         viewFactory.showMainWindow();
-       // PopUps.alertDialog("Hi", "its me");
         stage.setOnCloseRequest(e -> PersistenceAccess.saveToPersistence(viewFactory.getOptions()));
     }
 

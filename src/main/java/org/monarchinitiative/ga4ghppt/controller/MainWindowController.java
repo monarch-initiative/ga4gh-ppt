@@ -14,6 +14,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.web.WebView;
+import org.monarchinitiative.ga4ghppt.model.Model;
+import org.monarchinitiative.ga4ghppt.view.IndividualTab;
 import org.monarchinitiative.ga4ghppt.view.ViewFactory;
 import org.monarchinitiative.ga4ghppt.widgets.PopUps;
 import org.monarchinitiative.phenol.io.OntologyLoader;
@@ -41,6 +43,7 @@ public class MainWindowController extends BaseController implements Initializabl
     @FXML
     public WebView currentRobotView;
     public MenuItem showVersionsMenuItem;
+    public TabPane tabPane;
 
 
     @FXML
@@ -50,7 +53,7 @@ public class MainWindowController extends BaseController implements Initializabl
     private StringProperty statusBarTextProperty;
     private Optional<HostServices> hostServicesOpt;
 
-  //  private final Model model;
+    private final Model model;
 
     /** This gets set to true once the Ontology tree has finished initiatializing. Before that
      * we can check to make sure the user does not try to open a disease before the Ontology is
@@ -63,7 +66,7 @@ public class MainWindowController extends BaseController implements Initializabl
 
     public MainWindowController(ViewFactory viewFactory, String fxmlName) {
         super(viewFactory, fxmlName);
-       // model = new Model();
+        model = new Model();
     }
 
     @FXML
@@ -123,16 +126,18 @@ public class MainWindowController extends BaseController implements Initializabl
         setUpStatusBar();
         setUpKeyAccelerators();
         setupStatusBarOptions();
+        setUpTabPane();
         //loadHpoAndSetupOntologyTree();
        // setUpTableView();
 
     }
 
-
-
-
-
-
+    private void setUpTabPane() {
+        Tab individualTab = new IndividualTab();
+        individualTab.setId("Individual");
+        individualTab.setText("Individual");
+        tabPane.getTabs().add(individualTab);
+    }
 
 
     private void clearFields() {
