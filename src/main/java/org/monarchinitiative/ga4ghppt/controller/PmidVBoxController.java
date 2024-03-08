@@ -15,10 +15,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
-import java.util.Map;
-import java.util.Optional;
-import java.util.ResourceBundle;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,7 +28,7 @@ public class PmidVBoxController implements Initializable {
     private static final Pattern PUBMED_PATTERN = Pattern.compile(PUBMED_REGEX);
     
     
-    private Map<String, PubmedEntry> pubmedMap;
+    private final Map<String, PubmedEntry> pubmedMap;
 
 
     @FXML
@@ -46,7 +43,7 @@ public class PmidVBoxController implements Initializable {
     @FXML
     private VBox pmidVBox;
 
-    private BooleanProperty isValidProperty = new SimpleBooleanProperty();
+    private final BooleanProperty isValidProperty = new SimpleBooleanProperty();
     
     public PmidVBoxController() {
         pubmedMap = new TreeMap<>();
@@ -97,6 +94,8 @@ public class PmidVBoxController implements Initializable {
                 PubmedEntry entry = opt.get();
                 pubmedMap.putIfAbsent(entry.pmid(), entry);
                 updatePulldownMenu(entry.pmid());
+            } else {
+                setInvalid(String.format("Could not retrieve PubMed data for %s", pmid));
             }
             
         } catch (Exception e) {
@@ -121,5 +120,9 @@ public class PmidVBoxController implements Initializable {
         isValidProperty.set(true);
         errorLabel.setText("");
         pmidTextField.setStyle("-fx-text-box-border: green; -fx-focus-color: green ;");
+    }
+
+    public List<PubmedEntry> getPubmedEntries() {
+        return new ArrayList<>(pubmedMap.values());
     }
 }

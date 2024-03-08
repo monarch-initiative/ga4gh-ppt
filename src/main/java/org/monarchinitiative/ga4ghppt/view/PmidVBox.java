@@ -4,8 +4,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import org.monarchinitiative.ga4ghppt.controller.PmidVBoxController;
+import org.monarchinitiative.ga4ghppt.model.PubmedEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class PmidVBox extends VBox {
     private final static Logger LOGGER = LoggerFactory.getLogger(PmidVBox.class);
@@ -13,16 +16,19 @@ public class PmidVBox extends VBox {
     private PmidVBoxController controller;
 
     public PmidVBox() {
-     super();
+        super();
         try {
-        FXMLLoader loader = new FXMLLoader(IndividualTab.class.getResource("PmidVBox.fxml"));
-        controller = new PmidVBoxController();
-        loader.setController(controller);
-        Node node = loader.load();
-        this.getChildren().add(node);
-
-    } catch (Exception e) {
-        LOGGER.error("Error loading IndividualTabController: {}", e.getMessage());
+            FXMLLoader loader = new FXMLLoader(IndividualTab.class.getResource("PmidVBox.fxml"));
+            controller = new PmidVBoxController();
+            loader.setController(controller);
+            Node node = loader.load();
+            this.getChildren().add(node);
+        } catch (Exception e) {
+            LOGGER.error("Error loading IndividualTabController: {}", e.getMessage());
+        }
     }
+
+    List<PubmedEntry> getPubmedEntries() {
+        return controller.getPubmedEntries();
     }
 }

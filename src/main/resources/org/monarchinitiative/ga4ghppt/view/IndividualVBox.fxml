@@ -3,9 +3,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.web.HTMLEditor?>
 <?import org.monarchinitiative.ga4ghppt.view.PmidVBox?>
+<?import org.monarchinitiative.ga4ghppt.view.DemographicVBox?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       prefHeight="400.0" prefWidth="600.0">
             <HTMLEditor fx:id="htmlEd" htmlText="paste clinical vignette here" prefHeight="500.0" prefWidth="1000" />
             <PmidVBox fx:id="pmidVbox"/>
+            <DemographicVBox fx:id="demographicVbox" />
 </VBox>

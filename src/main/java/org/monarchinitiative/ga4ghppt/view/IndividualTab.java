@@ -23,7 +23,7 @@ public class IndividualTab extends Tab {
         try {
             FXMLLoader loader = new FXMLLoader(IndividualTab.class.getResource("IndividualVBox.fxml"));
             controller = new IndividualTabController();
-            LOGGER.info("Initialized controller: {}", controller.toString());
+            LOGGER.info("Initialized controller: {}", controller);
             loader.setController(controller);
             Node node = loader.load();
             LOGGER.info("Loaded node: {}", node.toString());

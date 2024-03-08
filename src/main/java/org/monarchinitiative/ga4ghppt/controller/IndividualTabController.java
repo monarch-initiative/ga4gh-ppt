@@ -3,6 +3,7 @@ package org.monarchinitiative.ga4ghppt.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.web.HTMLEditor;
+import org.monarchinitiative.ga4ghppt.view.DemographicVBox;
 import org.monarchinitiative.ga4ghppt.view.PmidVBox;
 
 import java.net.URL;
@@ -16,6 +17,9 @@ public class IndividualTabController implements Initializable {
     @FXML
     private PmidVBox pmidVbox;
 
+    @FXML
+    private DemographicVBox demographicVBox;
+
 
     public IndividualTabController() {
 
@@ -23,6 +27,7 @@ public class IndividualTabController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         System.out.println("INITI");
     }
 }

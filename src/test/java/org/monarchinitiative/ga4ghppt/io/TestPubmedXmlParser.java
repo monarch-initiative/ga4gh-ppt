@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestPubmedXmlParser {
 
-    private static String pubmedXml = """
+    private static final String pubmedXml = """
              <PubmedArticle><MedlineCitation Status="MEDLINE" Owner="NLM" IndexingMethod="Curated">
              <PMID Version="1">37840311</PMID>
              <DateCompleted><Year>2024</Year><Month>01</Month><Day>26</Day></DateCompleted>
@@ -22,21 +22,21 @@ public class TestPubmedXmlParser {
              <ArticleTitle>Re-evaluation of a Fibrillin-1 Gene Variant of Uncertain Significance Using the ClinGen Guidelines.</ArticleTitle>
              <Pagination><StartPage>271</StartPage><EndPage>278</EndPage><MedlinePgn>271-278</MedlinePgn></Pagination>
              <ELocationID EIdType="doi" ValidYN="Y">10.3343/alm.2023.0152</ELocationID>
-             <Abstract><AbstractText Label="BACKGROUND" NlmCategory="UNASSIGNED">Marfan syndrome (MFS) is caused by fibrillin-1 gene (<i>FBN1</i>) variants. 
-             Mutational hotspots and/or well-established critical functional domains of <i>FBN1</i> include cysteine residues, calcium-binding consensus sequences, 
+             <Abstract><AbstractText Label="BACKGROUND" NlmCategory="UNASSIGNED">Marfan syndrome (MFS) is caused by fibrillin-1 gene (<i>FBN1</i>) variants.
+             Mutational hotspots and/or well-established critical functional domains of <i>FBN1</i> include cysteine residues, calcium-binding consensus sequences,
              and amino acids related to interdomain packaging. Previous guidelines for variant interpretation do not reflect the features of genes or related diseases.
-              Using the Clinical Genome Resource (ClinGen) <i>FBN1</i> variant curation expert panel (VCEP), we re-evaluated <i>FBN1</i> germline variants reported 
-              as variants of uncertain significance (VUSs).</AbstractText><AbstractText Label="METHODS" NlmCategory="UNASSIGNED">We re-evaluated 26 VUSs in 
-              <i>FBN1</i> reported in 161 patients with MFS. We checked the variants in the Human Genome Mutation Database, ClinVar, and VarSome databases 
+              Using the Clinical Genome Resource (ClinGen) <i>FBN1</i> variant curation expert panel (VCEP), we re-evaluated <i>FBN1</i> germline variants reported
+              as variants of uncertain significance (VUSs).</AbstractText><AbstractText Label="METHODS" NlmCategory="UNASSIGNED">We re-evaluated 26 VUSs in
+              <i>FBN1</i> reported in 161 patients with MFS. We checked the variants in the Human Genome Mutation Database, ClinVar, and VarSome databases
               and assessed their allele frequencies using the gnomAD database. Patients' clinical information was reviewed.</AbstractText>
-              <AbstractText Label="RESULTS" NlmCategory="UNASSIGNED">Four missense variants affecting cysteines (c.460T&gt;C, c.1006T&gt;C, c.5330G&gt;C, 
-              and c.8020T&gt;C) were reclassified as likely pathogenic and were assigned PM1_strong or PM1. Two intronic variants were reclassified 
-              as benign by granting BA1 (stand-alone). Four missense variants were reclassified as likely benign. BP5 criteria were applied in cases 
-              with an alternate molecular basis for disease, one of which (c.7231G&gt;A) was discovered alongside a pathogenic <i>de novo</i> COL3A1 
-              variant (c.1988G&gt;T, p.Gly633Val).</AbstractText><AbstractText Label="CONCLUSIONS" NlmCategory="UNASSIGNED">Considering the high 
-              penetrance of <i>FBN1</i> variants and clinical variability of MFS, the detection of pathogenic variants is important. The ClinGen 
+              <AbstractText Label="RESULTS" NlmCategory="UNASSIGNED">Four missense variants affecting cysteines (c.460T&gt;C, c.1006T&gt;C, c.5330G&gt;C,
+              and c.8020T&gt;C) were reclassified as likely pathogenic and were assigned PM1_strong or PM1. Two intronic variants were reclassified
+              as benign by granting BA1 (stand-alone). Four missense variants were reclassified as likely benign. BP5 criteria were applied in cases
+              with an alternate molecular basis for disease, one of which (c.7231G&gt;A) was discovered alongside a pathogenic <i>de novo</i> COL3A1
+              variant (c.1988G&gt;T, p.Gly633Val).</AbstractText><AbstractText Label="CONCLUSIONS" NlmCategory="UNASSIGNED">Considering the high
+              penetrance of <i>FBN1</i> variants and clinical variability of MFS, the detection of pathogenic variants is important. The ClinGen
               <i>FBN1</i> VCEP encompasses mutational hotspots and/or well-established critical functional domains and adjusts the criteria s
-              pecifically for MFS; therefore, it is beneficial not only for identifying pathogenic <i>FBN1</i> variants but also for distinguishing 
+              pecifically for MFS; therefore, it is beneficial not only for identifying pathogenic <i>FBN1</i> variants but also for distinguishing
               these variants from those that cause other connective tissue disorders with overlapping clinical features.</AbstractText></Abstract>
               <AuthorList CompleteYN="Y"><Author ValidYN="Y"><LastName>Kim</LastName><ForeName>Seo Wan</ForeName><Initials>SW</Initials>
               <Identifier Source="ORCID">0000-0003-0390-9191</Identifier><AffiliationInfo><Affiliation>Department of Laboratory Medicine, Severance Hospital, Yonsei University College of Medicine, Seoul, Korea.</Affiliation></AffiliationInfo></Author>

@@ -141,9 +141,8 @@ public class FileDownloader {
 
     protected static URLConnection connect(URLConnection conn, int connectionTimeout, String acceptHeaders, Set<String> visited)
             throws IOException {
-        if (conn instanceof HttpURLConnection) {
+        if (conn instanceof HttpURLConnection con) {
             // follow redirects to HTTPS
-            HttpURLConnection con = (HttpURLConnection) conn;
             // we set the Accept encoding property to empty to force the download of files unzipped
             conn.setRequestProperty("Accept-Encoding", "");
             con.connect();
